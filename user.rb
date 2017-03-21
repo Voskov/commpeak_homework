@@ -11,7 +11,7 @@ class User
 
   def initialize(name, email, role = :user, password = nil)
     @name = name
-    @role = role
+    @role = role.to_sym
     @password = password
     @email = email
     raise Exception("email address <#{email}> is invalid") unless valid_email? # TODO - something discriptive
@@ -73,9 +73,13 @@ class User
     puts "email please?"
     email = $stdin.gets.chomp
     user_hash = @@udb.get_user_by_email(email)
-
-    user = User.new(user_hash['name'], user_hash['email'], user_hash['role'], user_hash['password'])
-    puts "logger in as #{user.name}"
+    if user_hash['role'] == :manager
+      require 'manager'
+      user = Manager.new(user_hash['name'], user_hash['email'], user_hash['password'])
+    else
+      user = User.new(user_hash['name'], user_hash['email'], user_hash['role'], user_hash['password'])
+    end
+    puts "logged in as #{user.name}"
     return user
   end
 

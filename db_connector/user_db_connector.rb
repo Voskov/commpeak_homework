@@ -8,7 +8,10 @@ class UserDbConnector < DbConnector
     if res.ntuples.zero?
       raise Exception.new("No such user")
     end
-    return res.first
+    ret = res.first
+    ret['role'] = ret['role'].to_sym
+    return ret
+
   end
 
   def create_new_user(user)

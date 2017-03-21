@@ -1,6 +1,7 @@
 $:.unshift(File.dirname(__FILE__))
 require 'logger'
 require 'requester'
+require 'manager'
 require 'ticket'
 require 'db_connector/csv_import'
 require 'db_connector/db_connector'
@@ -30,6 +31,16 @@ class Main
     ticket = Ticket.create_new_ticket(@user)
   end
 
+  def print_options
+    puts "Options:"
+    puts "1. ticket - Create ticket"
+    puts "2. user - Create user"
+    puts "3. dump - Dump csv to database"
+    puts "4. initiate - Initiate the database for this project"
+    puts "5. manager - manager menu"
+    puts "q. quit - quit the program"
+  end
+
   def create_user
     User.create_new_user
   end
@@ -40,6 +51,18 @@ class Main
     csvi.dump_tickets_to_db
   end
 
+  def manager_menu
+    unless @user
+      @user = User.login
+    end
+    if @user.is_a? Manager
+      @user.manager_menu
+    else
+      puts "Sorry, the current user isn't a manager"
+      print_options
+    end
+  end
+
   def initiate
     dbc = DbConnector.new
     dbc.create_db
@@ -47,19 +70,12 @@ class Main
   end
 end
 main = Main.new
-
-puts "Options:"
-puts "1. ticket - Create ticket"
-puts "2. user - Create user"
-puts "3. dump - Dump csv to database"
-puts "4. initiate - Initiate the database for this project"
-puts "q. quit - quit the program"
-
+main.print_options
 user_option = nil
 until user_option == "q" || user_option == "quit"
   puts "Please choose an option"
   user_option = $stdin.gets.chomp
-  options = %w(1 2 3 4 q ticket user dump initiate quit)
+  options = %w(1 2 3 4 5 q ticket user dump initiate manager quit)
   until options.include? user_option
     puts "One of the options above please"
     user_option = $stdin.gets.chomp
@@ -73,6 +89,8 @@ until user_option == "q" || user_option == "quit"
       main.dump_csv_to_db
     when "4", "initiate"
       main.initiate
+    when "5", "manager"
+      main.manager_menu
     when "q", "quit"
       puts "KTXBAI"
   end
