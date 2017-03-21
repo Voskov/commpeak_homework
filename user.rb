@@ -25,11 +25,11 @@ class User
     puts "name please?"
     name = $stdin.gets.chomp
     puts "and your email?"
-    email = gets.chomp
+    email = $stdin.gets.chomp
     puts "password? (not used yet)"
-    password = Digest::SHA1.hexdigest(gets.chomp)
+    password = Digest::SHA1.hexdigest($stdin.gets.chomp)
     puts 'Is this an management user? (Y/N)'
-    manage_response = gets.chomp
+    manage_response = $stdin.gets.chomp
     counter = 0
     until %w(y n Y N yes no Yes No YES NO).include? manage_response
       counter += 1
@@ -63,7 +63,7 @@ class User
 
   def self.login
     puts "email please?"
-    email = gets.chomp
+    email = $stdin.gets.chomp
     user_hash = @@udb.get_user_by_email(email)
 
     user = User.new(user_hash['name'], user_hash['email'], user_hash['role'], user_hash['password'])

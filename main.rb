@@ -58,11 +58,11 @@ puts "q. quit - quit the program"
 user_option = nil
 until user_option == "q" || user_option == "quit"
   puts "Please choose an option"
-  user_option = gets.chomp
+  user_option = $stdin.gets.chomp
   options = %w(1 2 3 4 q ticket user dump initiate quit)
   until options.include? user_option
     puts "One of the options above please"
-    user_option = gets.chomp
+    user_option = $stdin.gets.chomp
   end
   case user_option
     when "1", "ticket"

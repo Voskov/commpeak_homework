@@ -47,9 +47,9 @@ class Ticket
   def self.create_new_ticket(requester)
     puts "creating ticket" #TODO - log
     puts "What's the subject of the ticket?"
-    subject = gets.chomp
+    subject = $stdin.gets.chomp
     puts "And what's the content? What would you like to report?"
-    content = gets.chomp
+    content = $stdin.gets.chomp
     status = :new
     id = get_next_id
     created_at = Time.now.utc.iso8601
