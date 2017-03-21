@@ -1,7 +1,7 @@
 $:.unshift(File.dirname(File.dirname(__FILE__)))
 require 'time'
 require 'rspec'
-Dir["../db_connector/*.rb"].each {|file| require file}
+Dir["../db_connector/*.rb"].each { |file| require file }
 require 'ticket'
 require 'requester'
 
@@ -33,8 +33,9 @@ describe 'Test DbConnector' do
     @dbc.drop_table(table)
   end
 
-  it 'srops the whole database'
-  database =
+  it 'drops the whole database' do
+    @dbc.drop_database('commpeak')
+  end
 
   it 'Should create a database' do
     @dbc.create_db
@@ -47,7 +48,7 @@ describe 'Test DbConnector' do
 
   it 'should return user by email' do
     email = "testuser@email.com"
-    expected = {"email"=>"testuser@email.com", "name"=>"test user", "role"=>"manager", "password"=>"1e09db393d3bafadbbe556d007e8e97bcc459090"}
+    expected = {"email" => "testuser@email.com", "name" => "test user", "role" => "manager", "password" => "1e09db393d3bafadbbe556d007e8e97bcc459090"}
     res = @user_dbc.get_user_by_email(email)
     expect(res).to eq expected
   end

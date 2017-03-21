@@ -1,6 +1,4 @@
-$:.unshift(File.dirname(File.dirname(__FILE__)))
-require 'rspec'
-require '../requester'
+require_relative 'rspec_helper'
 
 describe 'Requester' do
   before(:all) do
@@ -14,6 +12,9 @@ describe 'Requester' do
     expect(r.email).to eq(@email)
   end
 
+  it 'creates and saves requester' do
+    r = Requester.new(@name, @email, :manager, )
+  end
   it 'tests errors' do
     false_email = "false_email"
     expect { r = Requester.new(@name, false_email) }.to raise_error
@@ -22,19 +23,6 @@ describe 'Requester' do
     before(:all) do
       @r = Requester.new(@name, @email)
     end
-    it "to_s" do
-      expected = "{:name=>\"Voskov\", :email=>\"voskov@email.com\"}"
-      expect(@r.to_s).to eq(expected)
-    end
-    it "to_hash" do
-      expected = {:name => "Voskov", :email => "voskov@email.com"}
-      expect(@r.to_hash).to eq(expected)
-    end
-    it "to_json" do
-      expected = "{\"name\":\"Voskov\",\"email\":\"voskov@email.com\"}"
-      expect(@r.to_json).to eq(expected)
-    end
-
     it 'saves the user to the db' do
       @r.register_user_to_db
     end

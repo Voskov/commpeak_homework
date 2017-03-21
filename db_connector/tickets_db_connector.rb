@@ -21,8 +21,13 @@ class TicketsDbConnector < DbConnector
   end
 
   def count_by_param(param, value)
-    stmt = "SELECT * FROM  #{@@tickets_table} WHERE param = value"
+    stmt = "SELECT * FROM  #{@@tickets_table} WHERE #{param} = '#{value}'"
     res = exequte_query(stmt)
     return res.first
+  end
+
+  def return_all_tickets
+    stmt = "SELECT * FROM #{@@tickets_table}"
+    res = exequte_query(stmt)
   end
 end

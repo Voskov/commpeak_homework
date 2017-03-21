@@ -44,12 +44,12 @@ class Ticket
     add_to_csv
   end
 
-  def self.create_new_ticket(requester)
+  def self.create_new_ticket(requester, subject = nil, content = nil)
     puts "creating ticket" #TODO - log
     puts "What's the subject of the ticket?"
-    subject = $stdin.gets.chomp
+    subject = subject || $stdin.gets.chomp
     puts "And what's the content? What would you like to report?"
-    content = $stdin.gets.chomp
+    content = content || $stdin.gets.chomp
     status = :new
     id = get_next_id
     created_at = Time.now.utc.iso8601
@@ -88,7 +88,7 @@ class Ticket
       create_csv_file
     end
     CSV.open(@@csv_file_path, "a") do |csv|
-      csv << [@id, @requester.to_json, @status, @subject, @content, @created_at, @updated_at, @comment]
+      csv << [@id, @requester.email, @status, @subject, @content, @created_at, @updated_at, @comment]
     end
   end
 

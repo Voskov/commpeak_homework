@@ -7,17 +7,14 @@ class User
   attr_accessor :name, :email, :role, :password
   @@user_logger = Logger.new(STDOUT)
   @@udb = UserDbConnector.new
-
+  ROLES = [:user, :manager]
   def initialize(name, email, role = :user, password = nil)
     @name = name
-    @email = email if valid_email?(email)
     @role = role
     @password = password
-    if valid_email?(email)
-      @email = email
-    else
-      raise Exception("email address <#{email}> is invalid") # TODO - something discriptive
-    end
+    @email = email
+    raise Exception("email address <#{email}> is invalid") unless valid_email?  # TODO - something discriptive
+    raise Exception("role must be one of #{ROLES}") unless ROLES.include? @role
   end
 
   def self.create_new_user
@@ -71,20 +68,12 @@ class User
     return user
   end
 
-  def valid_email?(email)
-    (email =~ /^(([A-Za-z0-9]*\.+*_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\+)|([A-Za-z0-9]+\+))*[A-Z‌​a-z0-9]+@{1}((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,4}$/i)
+  def valid_email?
+    (@email =~ /^(([A-Za-z0-9]*\.+*_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\+)|([A-Za-z0-9]+\+))*[A-Z‌​a-z0-9]+@{1}((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,4}$/i)
   end
 
   def to_hash
     return {name: @name, email: @email}
-  end
-
-  def to_s
-    to_hash.to_s
-  end
-
-  def to_json
-    to_hash.to_json
   end
 
   private :valid_email?

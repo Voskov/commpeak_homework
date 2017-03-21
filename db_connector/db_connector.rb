@@ -22,7 +22,7 @@ class DbConnector
   end
 
   def create_tickets_table
-    stmt = "CREATE TABLE #{@@configs['DB']['tickets_table']}(id INT PRIMARY KEY, requester JSON, status VARCHAR(15), subject VARCHAR(255), content TEXT, created_at timestamp, updated_at timestamp, comment VARCHAR(255))"
+    stmt = "CREATE TABLE #{@@configs['DB']['tickets_table']}(id INT PRIMARY KEY, requester VARCHAR(63), status VARCHAR(15), subject VARCHAR(255), content TEXT, created_at timestamp, updated_at timestamp, comment VARCHAR(255))"
     execute_statement(stmt)
   end
 

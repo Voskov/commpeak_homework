@@ -51,7 +51,7 @@ main = Main.new
 puts "Options:"
 puts "1. ticket - Create ticket"
 puts "2. user - Create user"
-puts "3. dump - Cump csv to database"
+puts "3. dump - Dump csv to database"
 puts "4. initiate - Initiate the database for this project"
 puts "q. quit - quit the program"
 

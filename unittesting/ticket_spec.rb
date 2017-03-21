@@ -1,7 +1,4 @@
-require 'rspec'
-require '../requester'
-require '../ticket'
-require 'time'
+require_relative 'rspec_helper'
 
 describe 'Ticket' do
   before(:all) do
@@ -26,10 +23,11 @@ describe 'Ticket' do
   end
 
   it 'should create a ticket' do
-    subject = "First subject"
-    content = "First description"
+    rnd = RspecHelper.random_string
+    subject = "Test subject - #{rnd}"
+    content = "Test description - #{rnd}"
     expect {
-      ticket = Ticket.create_new_ticket(@requester)
+      ticket = Ticket.create_new_ticket(@requester, subject, content)
       expect(ticket.subject).to eq(subject)
       expect(ticket.content).to eq(content)
     }.to_not raise_error
@@ -64,7 +62,6 @@ describe 'Ticket' do
     id = 3
     old_ticket = Ticket.get_ticket_by_id(id)
     new_subject, new_content = "new subject - ".concat((0...8).map { (65 + rand(26)).chr }.join), "new content - ".concat((0...8).map { (65 + rand(26)).chr }.join)
-
     old_ticket.update_ticket(subject: new_subject)
     old_ticket.update_ticket(content: new_content)
     new_ticket = Ticket.get_ticket_by_id(id)
