@@ -35,20 +35,13 @@ class Main
     puts "Options:"
     puts "1. ticket - Create ticket"
     puts "2. user - Create user"
-    puts "3. dump - Dump csv to database"
-    puts "4. initiate - Initiate the database for this project"
-    puts "5. manager - manager menu"
+    puts "3. initiate - Initiate the database for this project"
+    puts "4. manager - manager menu"
     puts "q. quit - quit the program"
   end
 
   def create_user
     User.create_new_user
-  end
-
-  def dump_csv_to_db
-    puts "dumping"
-    csvi = CsvImport.new
-    csvi.dump_tickets_to_db
   end
 
   def manager_menu
@@ -75,7 +68,7 @@ user_option = nil
 until user_option == "q" || user_option == "quit"
   puts "Please choose an option"
   user_option = $stdin.gets.chomp
-  options = %w(1 2 3 4 5 q ticket user dump initiate manager quit)
+  options = %w(1 2 3 4 q ticket user initiate manager quit)
   until options.include? user_option
     puts "One of the options above please"
     user_option = $stdin.gets.chomp
@@ -85,11 +78,9 @@ until user_option == "q" || user_option == "quit"
       main.create_ticket
     when "2", "user"
       main.create_user
-    when "3", "dump"
-      main.dump_csv_to_db
-    when "4", "initiate"
+    when "3", "initiate"
       main.initiate
-    when "5", "manager"
+    when "4", "manager"
       main.manager_menu
     when "q", "quit"
       puts "KTXBAI"
