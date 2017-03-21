@@ -2,8 +2,9 @@ require_relative 'rspec_helper'
 
 describe 'Requester' do
   before(:all) do
-    @name = "Voskov"
-    @email = "voskov@email.com"
+    rnd = RspecHelper.random_string
+    @name = "Voskov #{rnd}"
+    @email = "voskov.#{rnd}@email.com"
   end
   it 'creates a requester' do
     expect { r = Requester.new(@name, @email) }.to_not raise_error
@@ -13,7 +14,9 @@ describe 'Requester' do
   end
 
   it 'creates and saves requester' do
-    r = Requester.new(@name, @email, :manager, )
+    role = rand > 0.5 ? :manager : :user
+    r = Requester.new(@name, @email, role)
+    r.register_user_to_db
   end
   it 'tests errors' do
     false_email = "false_email"
