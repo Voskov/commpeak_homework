@@ -1,0 +1,6 @@
+DB:
+  db_name: commpeak
+  username: postgres
+  password: fghjkl;'
+  tickets_table: tickets
+  users_table: users

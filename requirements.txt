@@ -1,0 +1,19 @@
+Here is a test task description for CommPeak.
+
+Create simple support ticket system.
+Ticket should consist of Requester details (name, email), Ticket status (new, pending, resolved), Subject, Content.
+Fields name, email and subject are required, email must be a valid email.
+
+Task #1. All tickets must be stored to CSV file.
+Task #2. Create task to import CSV file to database to appropriate model.
+Task #3. Create view for manager to manage tickets (change status, delete).
+
+Bonus:
+- add comments to tickets for manager
+- resolved state can't be applied without a comment
+- view of tickets should include filtering by fields and statistics (number of tickets in each status)
+
+Extra bonus:
+- make it all work with registered users
+
+Feel free to implement something a bit different.
