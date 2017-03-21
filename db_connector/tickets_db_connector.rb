@@ -28,6 +28,9 @@ class TicketsDbConnector < DbConnector
 
   def return_all_tickets
     stmt = "SELECT * FROM #{@@tickets_table}"
+    stmt = "SELECT t.id, u.name, t.status, t.subject, t.content
+            FROM #{@@configs['DB']['users_table']} u ,#{@@tickets_table} t
+            WHERE u.email=t.requester;"
     res = exequte_query(stmt)
   end
 end

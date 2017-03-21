@@ -26,7 +26,7 @@ class User
     end
     unless email
       puts "and your email?"
-      email = $stdin.gets.chomp
+      email = $stdin.gets.chomp.downcase
     end
     unless password
       puts "password? (not used yet)"

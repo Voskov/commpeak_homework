@@ -12,11 +12,33 @@ class Manager < User
 
   def display_all_tickets
     all_tickets = @@ticket_db_connector.return_all_tickets
-    all_tickets
-    all = all_tickets.values
-
+    display_tickets(all_tickets)
   end
 
+  def display_tickets(a)
+    grouped = a.group_by{|t| t[0]}.values
+    columns = %w(ID Requester Status Subject Content)
+    header = "<tr>" << columns.map do |column|
+      "<td>#{column}</td>"
+    end.join(" ") << "</tr>"
+    header
+    table = grouped.map do |portion|
+      "<table border=\"1\">\n" << header << "\n<tr>" << portion.map do |column|
+        "<td>" << column.map do |element|
+          element[1].to_s
+        end.join("</td><td>") << "</td>"
+      end.join("</tr>\n<tr>") << "</tr>\n</table>\n"
+    end.join("\n")
+    tmp_file = "output.html"
+
+    output = open(tmp_file, "w")
+    output.write(table)
+    output.close
+    system("start #{output.path}")
+    sleep 1
+    File.delete(tmp_file)
+
+  end
   def dump_csv_to_db
     @@user_logger.info("dumping csv")
     csvi = CsvImport.new

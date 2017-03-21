@@ -6,16 +6,6 @@ require 'ticket'
 require 'db_connector/csv_import'
 require 'db_connector/db_connector'
 
-# require 'optparse'
-# options = {command: nil, params: nil}
-# parser = OptionParser.new do |opts|
-#   opts.banner = "Usage: main.rb [command] [parameters]"
-#   opts.on('-c', '--command comand', 'Command') do |command|
-#     options[:command] = command
-#   end
-#   opts.on
-# end
-
 class Main
   def initialize
     @logger = Logger.new(STDOUT)
