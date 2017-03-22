@@ -80,7 +80,7 @@ class User
       return
     end
     if user_hash['role'] == :manager
-      require 'manager'
+      require 'src/manager'
       user = Manager.new(user_hash['name'], user_hash['email'], user_hash['password'])
     else
       user = User.new(user_hash['name'], user_hash['email'], user_hash['role'], user_hash['password'])

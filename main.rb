@@ -1,8 +1,8 @@
 $:.unshift(File.dirname(__FILE__))
 require 'logger'
-require 'requester'
-require 'manager'
-require 'ticket'
+require 'src/requester'
+require 'src/manager'
+require 'src/ticket'
 require 'db_connector/csv_import'
 require 'db_connector/db_connector'
 

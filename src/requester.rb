@@ -1,4 +1,4 @@
-require 'user'
+require 'src/user'
 
 # I First had the requester class and then separated to user and manager
 class Requester < User

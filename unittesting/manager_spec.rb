@@ -1,5 +1,5 @@
 require_relative 'rspec_helper'
-require 'manager'
+require 'src/manager'
 
 describe 'tests manager' do
   def rnd_str

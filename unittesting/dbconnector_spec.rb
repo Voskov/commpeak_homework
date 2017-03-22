@@ -2,8 +2,8 @@ $:.unshift(File.dirname(File.dirname(__FILE__)))
 require 'time'
 require 'rspec'
 Dir["../db_connector/*.rb"].each { |file| require file }
-require 'ticket'
-require 'requester'
+require 'src/ticket'
+require 'src/requester'
 
 describe 'Test DbConnector' do
   before(:all) do

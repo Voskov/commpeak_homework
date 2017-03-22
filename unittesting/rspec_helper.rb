@@ -1,7 +1,7 @@
 $:.unshift(File.dirname(File.dirname(__FILE__)))
 require 'rspec'
-require 'requester'
-require 'ticket'
+require 'src/requester'
+require 'src/ticket'
 require 'time'
 Dir["../db_connector/*.rb"].each {|file| require file}
 

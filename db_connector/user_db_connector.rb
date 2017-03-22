@@ -1,5 +1,5 @@
-require_relative 'db_connector'
-require 'user'
+require 'db_connector/db_connector'
+require 'src/user'
 
 class UserDbConnector < DbConnector
   def get_user_by_email(email)

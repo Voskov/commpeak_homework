@@ -1,6 +1,6 @@
-require_relative 'db_connector'
-require_relative '../ticket'
-require_relative 'tickets_db_connector'
+require 'src/ticket'
+require 'db_connector/db_connector'
+require 'db_connector/tickets_db_connector'
 
 class CsvImport < DbConnector
   def dump_tickets_to_db

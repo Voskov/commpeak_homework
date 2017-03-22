@@ -2,8 +2,8 @@ $:.unshift(File.dirname(__FILE__))
 require 'time'
 require 'CSV'
 require 'json'
-require 'requester'
-require 'user'
+require 'src/requester'
+require 'src/user'
 require 'db_connector/tickets_db_connector'
 
 class Ticket

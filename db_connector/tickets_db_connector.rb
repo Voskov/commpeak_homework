@@ -1,4 +1,4 @@
-require_relative 'db_connector'
+require 'db_connector/db_connector'
 
 class TicketsDbConnector < DbConnector
   @@tickets_table = @@configs['DB']['tickets_table']

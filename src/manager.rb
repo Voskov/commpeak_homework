@@ -1,6 +1,6 @@
 require 'rexml/document'
 require 'logger'
-require 'user'
+require 'src/user'
 require 'display'
 require 'db_connector/tickets_db_connector'
 
