@@ -47,14 +47,8 @@ class DbConnector
   end
 
   def execute_statement(statement)
-    # begin
     con = PG.connect(dbname: @database, user: @user, password: @password)
     con.exec(statement)
-    # rescue PG::Error => e
-    #   puts e.message
-    # ensure
-    #   con.close if con
-    # end
   end
 
   def execute_prepared_statement(prepared, params_arr)

@@ -22,7 +22,7 @@ class Display
     output.close
     system("start #{output.path}")
     sleep 1
-    # File.delete(tmp_file)
+    File.delete(tmp_file)
 
   end
 

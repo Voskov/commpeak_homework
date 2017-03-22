@@ -27,11 +27,17 @@ class Main
     puts "2. user - Create user"
     puts "3. initiate - Initiate the database for this project"
     puts "4. manager - manager menu"
+    puts "5. logout - Logs the current user out"
     puts "q. quit - quit the program"
   end
 
   def create_user
     User.create_new_user
+  end
+
+  def logout
+    @logger.info("logging out")
+    @user = nil
   end
 
   def manager_menu
@@ -51,28 +57,33 @@ class Main
     dbc.create_db
     dbc.create_tables
   end
-end
-main = Main.new
-main.print_options
-user_option = nil
-until user_option == "q" || user_option == "quit"
-  puts "Please choose an option"
-  user_option = $stdin.gets.chomp
-  options = %w(1 2 3 4 q ticket user initiate manager quit)
-  until options.include? user_option
-    puts "One of the options above please"
-    user_option = $stdin.gets.chomp
+
+  def main
+    print_options
+    user_option = nil
+    until user_option == "q" || user_option == "quit"
+      puts "Please choose an option"
+      user_option = $stdin.gets.chomp
+      options = %w(1 2 3 4 5 q ticket user initiate manager logout quit)
+      until options.include? user_option
+        puts "One of the options above please"
+        user_option = $stdin.gets.chomp
+      end
+      case user_option
+        when "1", "ticket"
+          create_ticket
+        when "2", "user"
+          create_user
+        when "3", "initiate"
+          initiate
+        when "4", "manager"
+          manager_menu
+        when "5", "logout"
+          logout
+        when "q", "quit"
+          puts "KTXBAI"
+      end
+    end
   end
-  case user_option
-    when "1", "ticket"
-      main.create_ticket
-    when "2", "user"
-      main.create_user
-    when "3", "initiate"
-      main.initiate
-    when "4", "manager"
-      main.manager_menu
-    when "q", "quit"
-      puts "KTXBAI"
-  end
 end
+Main.new.main

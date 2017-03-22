@@ -14,7 +14,7 @@ class User
     @role = role.to_sym
     @password = password
     @email = email
-    raise Exception("email address <#{email}> is invalid") unless valid_email? # TODO - something discriptive
+    raise Exception("email address <#{email}> is invalid") unless valid_email?
     raise Exception("role must be one of #{ROLES}") unless ROLES.include? @role
   end
 

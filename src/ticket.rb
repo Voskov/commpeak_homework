@@ -45,7 +45,7 @@ class Ticket
   end
 
   def self.create_new_ticket(requester, subject = nil, content = nil)
-    puts "creating ticket" #TODO - log
+    @@ticket_logger.info("creating ticket")
     puts "What's the subject of the ticket?"
     subject = subject || $stdin.gets.chomp
     puts "And what's the content? What would you like to report?"
@@ -62,7 +62,7 @@ class Ticket
   def self.get_ticket_by_id(id)
     all_tickets = CSV.read(@@csv_file_path)[1..-1]
     ticket_arr = all_tickets.detect { |i| i[0].to_i == id }
-    requester = Requester.new(JSON.parse(ticket_arr[1])['name'], JSON.parse(ticket_arr[1])['email'])
+    requester = User.new(JSON.parse(ticket_arr[1])['name'], JSON.parse(ticket_arr[1])['email'])
     ticket = Ticket.new(requester = requester,
                         subject = ticket_arr[3],
                         content = ticket_arr[4],
@@ -101,7 +101,7 @@ class Ticket
     end
   end
 
-  def self.count_tickets_by_param(param, value)
-    @@ticket_db_connector.count_by_param(param, value)
+  def self.count_tickets_by_param(param)
+    @@ticket_db_connector.count_by_param(param)
   end
 end
