@@ -20,17 +20,19 @@ class TicketsDbConnector < DbConnector
     execute_prepared_statement(stmt, params)
   end
 
-  def count_by_param(param, value)
-    stmt = "SELECT * FROM  #{@@tickets_table} WHERE #{param} = '#{value}'"
+  def count_by_param(param)
+    stmt = "SELECT #{param}, count(*) FROM  #{@@tickets_table} GROUP BY #{param}"
     res = exequte_query(stmt)
-    return res.first
+    return res
   end
 
   def return_all_tickets
-    stmt = "SELECT * FROM #{@@tickets_table}"
     stmt = "SELECT t.id, u.name, t.status, t.subject, t.content
             FROM #{@@configs['DB']['users_table']} u ,#{@@tickets_table} t
-            WHERE u.email=t.requester;"
+            WHERE u.email=t.requester
+            ORDER BY t.id;"
     res = exequte_query(stmt)
   end
+
+
 end

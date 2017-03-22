@@ -71,8 +71,14 @@ class User
 
   def self.login
     puts "email please?"
-    email = $stdin.gets.chomp
-    user_hash = @@udb.get_user_by_email(email)
+    email = $stdin.gets.chomp.downcase
+    begin
+      user_hash = @@udb.get_user_by_email(email)
+    rescue Exception => e
+      @@user_logger.error("Could not login")
+      @@user_logger.error(e.message)
+      return
+    end
     if user_hash['role'] == :manager
       require 'manager'
       user = Manager.new(user_hash['name'], user_hash['email'], user_hash['password'])
