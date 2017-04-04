@@ -3,6 +3,7 @@ require 'db_connector/db_connector'
 class TicketsDbConnector < DbConnector
   @@tickets_table = @@configs['DB']['tickets_table']
 
+
   # TODO - Rewrite this statement
   def save_ticket(ticket)
     stmt = "INSERT INTO #{@@tickets_table} values(#{ticket.id}, '#{ticket.requester.to_json}', '#{ticket.status}', '#{ticket.subject}', '#{ticket.content}', '#{ticket.created_at}', '#{ticket.updated_at}', '#{ticket.comment}')"

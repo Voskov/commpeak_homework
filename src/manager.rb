@@ -10,7 +10,7 @@ class Manager < User
   def initialize(name, email, password)
     super(name, email, :manager, password)
     @display = Display.new
-    @ticket_db_connector = TicketsDbConnector.new
+    @ticket_db_connector = TicketsDbConnector.instance
   end
 
 

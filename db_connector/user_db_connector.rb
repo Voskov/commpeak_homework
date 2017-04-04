@@ -11,7 +11,6 @@ class UserDbConnector < DbConnector
     ret = res.first
     ret['role'] = ret['role'].to_sym
     return ret
-
   end
 
   def create_new_user(user)

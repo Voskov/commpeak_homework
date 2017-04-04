@@ -9,7 +9,6 @@ require 'db_connector/tickets_db_connector'
 class Ticket
   attr_accessor :requester, :subject, :content, :created_at, :updated_at, :status, :id, :comment
   @@csv_file_path = File.join(File.dirname(File.path(__FILE__)), "csv_tickets", "tickets.csv")
-  @@ticket_db_connector = TicketsDbConnector.new
   @@ticket_logger = Logger.new(STDOUT)
 
 
@@ -31,6 +30,7 @@ class Ticket
     @created_at = created_at
     @updated_at = updated_at
     @comment = comment
+    @ticket_db_connector = TicketsDbConnector.instance
   end
 
   def update_ticket(subject:nil, content:nil, status:nil, comment:nil)
@@ -102,6 +102,6 @@ class Ticket
   end
 
   def self.count_tickets_by_param(param)
-    @@ticket_db_connector.count_by_param(param)
+    @ticket_db_connector.count_by_param(param)
   end
 end

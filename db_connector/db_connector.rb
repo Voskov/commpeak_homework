@@ -1,13 +1,14 @@
 require 'yaml'
 require 'pg'
+require 'singleton'
 
 class DbConnector
   attr_reader :configs
   @@configs = YAML.load_file(File.join(File.dirname(__FILE__), "..", "config", "config.yaml"))
+  include Singleton
 
   def initialize
-    @configs = YAML.load_file(File.join(File.dirname(__FILE__), "..", "config", "config.yaml"))
-    @database, @user, @password = @configs['DB']['db_name'], @configs['DB']['username'], @configs['DB']['password']
+    @database, @user, @password = @@configs['DB']['db_name'], @@configs['DB']['username'], @@configs['DB']['password']
   end
 
   def create_db

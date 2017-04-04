@@ -1,4 +1,4 @@
-Here is a test task description for CommPeak.
+Here is a test task description:
 
 Create simple support ticket system.
 Ticket should consist of Requester details (name, email), Ticket status (new, pending, resolved), Subject, Content.

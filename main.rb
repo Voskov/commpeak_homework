@@ -23,6 +23,7 @@ class Main
 
   def print_options
     puts "Options:"
+    puts "________"
     puts "1. ticket - Create ticket"
     puts "2. user - Create user"
     puts "3. initiate - Initiate the database for this project"

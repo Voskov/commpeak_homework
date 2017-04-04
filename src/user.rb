@@ -6,7 +6,6 @@ require 'db_connector/user_db_connector'
 class User
   attr_accessor :name, :email, :role, :password
   @@user_logger = Logger.new(STDOUT)
-  @@udb = UserDbConnector.new
   ROLES = [:user, :manager]
 
   def initialize(name, email, role = :user, password = nil)
@@ -16,6 +15,7 @@ class User
     @email = email
     raise Exception("email address <#{email}> is invalid") unless valid_email?
     raise Exception("role must be one of #{ROLES}") unless ROLES.include? @role
+    @udb = UserDbConnector.instance
   end
 
   def self.create_new_user(name: nil, email: nil, role: nil, password: nil) # The parameters are here mainly for testing and debugging
@@ -62,7 +62,7 @@ class User
 
   def register_user_to_db
     begin
-      @@udb.create_new_user(self)
+      @udb.create_new_user(self)
     rescue Exception => e
       @@user_logger.error("Could not create this user")
       @@user_logger.error(e.message.chomp.gsub("\n", " - "))
@@ -73,7 +73,7 @@ class User
     puts "email please?"
     email = $stdin.gets.chomp.downcase
     begin
-      user_hash = @@udb.get_user_by_email(email)
+      user_hash = @udb.get_user_by_email(email)
     rescue Exception => e
       @@user_logger.error("Could not login")
       @@user_logger.error(e.message)

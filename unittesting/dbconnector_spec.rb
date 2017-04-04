@@ -8,8 +8,8 @@ require 'src/requester'
 describe 'Test DbConnector' do
   before(:all) do
     @dbc = DbConnector.new
-    @ticket_dbc = TicketsDbConnector.new
-    @user_dbc = UserDbConnector.new
+    @ticket_dbc = TicketsDbConnector.instance
+    @user_dbc = UserDbConnector.instance
     @configs = YAML.load_file(File.join(File.dirname(__FILE__), "..", "config", "config.yaml"))
   end
 
@@ -34,7 +34,7 @@ describe 'Test DbConnector' do
   end
 
   it 'drops the whole database' do
-    @dbc.drop_database('commpeak')
+    @dbc.drop_database('ticketsdb')
   end
 
   it 'Should create a database' do
